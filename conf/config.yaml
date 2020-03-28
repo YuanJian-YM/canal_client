@@ -1,0 +1,39 @@
+log_path: "logs/info.log"
+log_level: "debug"
+log_is_print_to_screen: True
+
+mysql_config:
+  host: "172.22.22.125"
+  port: 3309
+  user: "root"
+  password: "root"
+  charset: "utf8"
+
+use_kafka_not_use_subscribe: True
+
+kafka_config:
+  address:
+    - "172.22.22.192:9092"
+  group_id: 1
+  topic:
+    - topic_name: "example"
+      partition:
+        number: 0
+        offset:
+  thread_pool_count: 20
+
+
+subscribe_config:
+  host: "172.22.22.192"
+  port: 11111
+  username: "canal"
+  password: "canal"
+  client_id: 1001
+  destination: "test"
+  sleep_time: 1
+  get_count: 100
+  thread_pool_count: 20
+
+
+
+

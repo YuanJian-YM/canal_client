@@ -1,0 +1,79 @@
+image:
+  harbor.shannonai.com/inf/ci-autobuild:latest
+stages:
+  - static_analysis
+  - build_image
+  - test
+  - publish_image
+  - cleanup_env
+
+
+variables:
+  CI_SCRIPT_URL: "https://git.shannonai.com/open/gitlab-ci/raw/master"
+  PIPELINE_NAME: "autobuild"
+
+before_script:
+  - gitlab_ci_init
+
+static_code_check_job:
+  stage: static_analysis
+  only:
+    - merge_request
+  script:
+    - static_analysis_check
+
+
+image_build_test_job:
+  stage: build_image
+  only:
+    - merge_request
+  script:
+    - image_build
+
+
+unit_test_job:
+  stage: test
+  only:
+    - merge_request
+  script:
+    - unit_test
+
+regression_test_job:
+  stage: test
+  only:
+    - merge_request
+  script:
+    - regression_test
+
+coverage_test_job:
+  stage: test
+  only:
+    - merge_request
+  script:
+    - coverage_test
+
+performance_test_job:
+  stage: test
+  only:
+    - merge_request
+  script:
+    - performance_test
+
+image_publish_job:
+  stage: publish_image
+  only:
+    - tags
+  script:
+    - image_publish
+
+image_clean_up_job:
+  stage: cleanup_env
+  allow_failure: true
+  only:
+    - merge_request
+    - tags
+  when: always
+  script:
+    - env_cleanup
+
+
