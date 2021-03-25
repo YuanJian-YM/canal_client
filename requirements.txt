@@ -2,5 +2,5 @@ canal-python==0.4
 kafka-python==2.0.1
 protobuf==3.9.1
 PyMySQL==0.9.3
-PyYAML==5.2
+PyYAML==5.4
 
